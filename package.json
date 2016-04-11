@@ -1,0 +1,47 @@
+{
+  "name": "exprs",
+  "version": "0.1.0",
+  "description": "A superslim Express like library based on Middl",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joakimbeng/exprs.git"
+  },
+  "keywords": [
+    "middl",
+    "express",
+    "byoe",
+    "http",
+    "web",
+    "middleware"
+  ],
+  "author": {
+    "name": "Joakim Carlstein",
+    "email": "joakim@beng.se",
+    "url": "http://joakim.beng.se"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joakimbeng/exprs/issues"
+  },
+  "homepage": "https://github.com/joakimbeng/exprs#readme",
+  "xo": {
+    "envs": [
+      "node"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "supertest": "^1.2.0",
+    "xo": "^0.14.0"
+  },
+  "dependencies": {
+    "middl": "^0.3.1"
+  }
+}
