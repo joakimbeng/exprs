@@ -1,6 +1,8 @@
 'use strict';
 const http = require('http');
+const finalhandler = require('finalhandler');
 const middl = require('middl');
+const response = require('./response');
 
 module.exports = exports = function () {
 	const app = middl({pathProperty: 'url'});
@@ -24,14 +26,19 @@ module.exports = exports = function () {
 		return server.listen.apply(server, arguments);
 	};
 
-	// Default NOT FOUND-route
-	app.use(function *(req, res, next) {
-		yield next();
-		if (!res.headersSent) {
-			res.writeHead(404, {'Content-Type': 'text/plain'});
-			res.end(http.STATUS_CODES['404']);
-		}
+	// Patch request and response objects:
+	app.use((req, res) => {
+		response(res);
 	});
+
+	const _run = app.run;
+
+	// Use finalhandler to respond with 404 and other errors when needed:
+	app.run = (req, res) => {
+		return _run(req, res)
+			.then(() => finalhandler(req, res)())
+			.catch(err => finalhandler(req, res)(err));
+	};
 
 	return app;
 };
